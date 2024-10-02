@@ -39,20 +39,20 @@ public class EmployeeServlet extends HttpServlet {
 
     public void createEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-                employeeDTO.setName(req.getParameter("name"));
-                employeeDTO.setEmail(req.getParameter("email"));
-                employeeDTO.setPoste(req.getParameter("poste"));
-                employeeDTO.setPhone(req.getParameter("phone"));
-                employeeDTO.setDepartementID(Integer.parseInt(req.getParameter("departement_id")));
-                employeeServices.create(employeeDTO);
+            employeeDTO.setName(req.getParameter("name"));
+            employeeDTO.setEmail(req.getParameter("email"));
+            employeeDTO.setPoste(req.getParameter("poste"));
+            employeeDTO.setPhone(req.getParameter("phone"));
+            employeeDTO.setDepartementID(Integer.parseInt(req.getParameter("departement_id")));
+            employeeServices.create(employeeDTO);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
     public void deleteEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-                int employeeID = Integer.parseInt(req.getParameter("employee_id"));
-                employeeServices.delete(employeeID);
+            int employeeID = Integer.parseInt(req.getParameter("employee_id"));
+            employeeServices.delete(employeeID);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
