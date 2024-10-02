@@ -4,7 +4,7 @@
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/workforce</property>
         <property name="hibernate.connection.username">postgres</property>
-        <property name="hibernate.connection.password">" "</property>
+        <property name="hibernate.connection.password">user</property>
         <property name="hibernate.c3p0.min_size">5</property>
         <property name="hibernate.c3p0.max_size">20</property>
         <property name="hibernate.c3p0.timeout">300</property>
@@ -14,5 +14,6 @@
         <property name="hibernate.current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
+        <mapping resource="entities/Employee.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
