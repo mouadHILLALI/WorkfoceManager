@@ -7,15 +7,15 @@ public class Employee {
     private String email;
     private String phone;
     private String poste;
-    private int departementID;
+    private String department;
     public Employee(){}
-    public Employee(int id, String name, String email, String phone, String poste, int departementID) {
+    public Employee(int id, String name, String email, String phone, String poste, String department) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.poste = poste;
-        this.departementID = departementID;
+        this.department = department;
     }
     public int getId() {
         return id;
@@ -29,8 +29,8 @@ public class Employee {
     public String getPoste() {
         return poste;
     }
-    public int getDepartementID() {
-        return departementID;
+    public String getDepartment() {
+        return department;
     }
 
     public String getPhone() {
@@ -51,7 +51,7 @@ public class Employee {
     public void setPoste(String poste) {
         this.poste = poste;
     }
-    public void setDepartementID(int departementID) {
-        this.departementID = departementID;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

@@ -10,6 +10,6 @@
         <property name="email" column="email"/>
         <property name="phone" column="phone"/>
         <property name="poste" column="poste"/>
-        <property name="departementID" column="departementID"/>
+        <property name="department" column="department"/>
     </class>
 </hibernate-mapping>

@@ -19,7 +19,7 @@ public class EmployeeDtoMapper {
                     employeeDTO.getEmail(),
                     employeeDTO.getPhone(),
                     employeeDTO.getPoste(),
-                    employeeDTO.getDepartementID()
+                    employeeDTO.getDepartment()
             );
         } catch (Exception e) {
             throw new RuntimeException("Error while mapping EmployeeDTO to Employee", e);
@@ -37,7 +37,7 @@ public class EmployeeDtoMapper {
                     employee.getEmail(),
                     employee.getPhone(),
                     employee.getPoste(),
-                    employee.getDepartementID()
+                    employee.getDepartment()
             );
         } catch (Exception e) {
             throw new RuntimeException("Error while mapping Employee to EmployeeDTO", e);

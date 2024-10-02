@@ -5,14 +5,13 @@ import java.util.regex.Pattern;
 
 public class DataValidator {
     final String emailRegex = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$";
-    final String phoneRegex = "^(\\+\\d{1,3})?\\d{10,15}$";
-
+    String phoneRegex = "^(?:\\+212|0)([5-7]\\d{8})$";
     public DataValidator() {
 
     }
 
     public boolean validate(EmployeeDTO employeeDTO ) {
-        return validateName(employeeDTO) && validateEmail(employeeDTO) && validatePhone(employeeDTO) && validatePoste(employeeDTO) && validateDepartementID(employeeDTO);
+        return validateName(employeeDTO) && validateEmail(employeeDTO)  && validatePoste(employeeDTO) && validateDepartement(employeeDTO);
     }
 
     private boolean validateName(EmployeeDTO employeeDTO) {
@@ -47,9 +46,9 @@ public class DataValidator {
         return true;
     }
 
-    private boolean validateDepartementID(EmployeeDTO employeeDTO) {
-        if (employeeDTO.getDepartementID() <= 0) {
-            System.out.println("Invalid departement ID: " + employeeDTO.getDepartementID());
+    private boolean validateDepartement(EmployeeDTO employeeDTO) {
+        if (employeeDTO.getDepartment() == null || employeeDTO.getPoste().trim().isEmpty()) {
+            System.out.println("department cannot be null or empty");
             return false;
         }
         return true;
