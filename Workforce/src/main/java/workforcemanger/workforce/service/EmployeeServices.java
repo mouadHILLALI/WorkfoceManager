@@ -1,33 +1,45 @@
 package workforcemanger.workforce.service;
 
 import workforcemanger.workforce.configuration.SessionFactoryUtil;
+import workforcemanger.workforce.dto.EmployeeDTO;
+import workforcemanger.workforce.helper.DataValidator;
+import workforcemanger.workforce.mapper.EmployeeDtoMapper;
 import workforcemanger.workforce.model.Employee;
 import workforcemanger.workforce.repository.Employee.EmployeeRepositoryImpl;
 
 public class EmployeeServices {
     private final EmployeeRepositoryImpl employeeRepository;
+    final DataValidator dataValidator = new DataValidator();
+    final EmployeeDtoMapper employeeDtoMapper = new EmployeeDtoMapper();
     public EmployeeServices(SessionFactoryUtil sessionFactoryUtil) {
         this.employeeRepository = new EmployeeRepositoryImpl(sessionFactoryUtil);
     }
-    public Employee create(Employee employee) {
+    public Employee create(EmployeeDTO employeeDTO) {
         try {
-            return employeeRepository.create(employee);
+            if (!dataValidator.validate(employeeDTO)){
+                return null;
+            }
+           return employeeRepository.create(employeeDtoMapper.mapToEmployee(employeeDTO));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-    public Employee update(Employee employee) {
+    public Employee update(EmployeeDTO employeeDTO) {
         try {
-            return employeeRepository.update(employee);
+            if (!dataValidator.validate(employeeDTO)){
+                return null;
+            }
+            return employeeRepository.update(employeeDtoMapper.mapToEmployee(employeeDTO));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
-    public void delete(Employee employee) {
+    public boolean delete(int employeeID) {
         try {
-            employeeRepository.delete(employee);
+            return employeeRepository.deleteById(employeeID);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+
 }

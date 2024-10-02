@@ -9,6 +9,6 @@
 </h1>
 <h1>hello toto</h1>
 <br/>
-<a href="./Views/employee.jsp">Hello Servlet</a>
+<a href="Views/employee.jsp">Hello Servlet</a>
 </body>
 </html>

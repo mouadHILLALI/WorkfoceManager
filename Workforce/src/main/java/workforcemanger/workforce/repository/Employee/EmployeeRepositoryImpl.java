@@ -32,20 +32,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public <T> T delete(T t) {
-       if (t instanceof Employee){
-           Transaction transaction = null;
-           try(Session session = sessionFactory.openSession()){
-               transaction = session.beginTransaction();
-               session.delete(t);
-               transaction.commit();
-               return (T) t;
-           }catch (Exception e){
-               if (transaction != null){
-                   transaction.rollback();
-               }
-               e.printStackTrace();
-           }
-       }
        return null;
     }
 
@@ -84,4 +70,31 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         }
         return null;
     }
+
+    @Override
+    public boolean deleteById(int employeeId) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+
+            // Fetch the employee by ID
+            Employee employee = session.get(Employee.class, employeeId);
+            if (employee != null) {
+                session.delete(employee); // Delete the fetched employee
+                transaction.commit();
+                return true; // Return true if deletion was successful
+            } else {
+                // Handle case where employee was not found
+                System.out.println("Employee not found with ID: " + employeeId);
+                return false; // Return false if no employee was found
+            }
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback(); // Rollback the transaction in case of error
+            }
+            e.printStackTrace();
+            return false; // Return false if an exception occurred
+        }
+    }
+
 }
