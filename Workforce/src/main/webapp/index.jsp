@@ -6,6 +6,6 @@
 </head>
 <body>
 <br/>
-<a href="employee.jsp">Manage Employees</a>
+<a href="/employees?action=">Manage Employees</a>
 </body>
 </html>

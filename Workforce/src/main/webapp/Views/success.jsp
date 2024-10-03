@@ -12,5 +12,6 @@
 </head>
 <body>
 <h1>success</h1>
+<a href="/employees?action=">return to main page</a>
 </body>
 </html>

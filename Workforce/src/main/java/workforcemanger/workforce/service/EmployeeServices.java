@@ -7,6 +7,8 @@ import workforcemanger.workforce.mapper.EmployeeDtoMapper;
 import workforcemanger.workforce.model.Employee;
 import workforcemanger.workforce.repository.Employee.EmployeeRepositoryImpl;
 
+import java.util.List;
+
 public class EmployeeServices {
     private final EmployeeRepositoryImpl employeeRepository;
     final DataValidator dataValidator = new DataValidator();
@@ -41,5 +43,18 @@ public class EmployeeServices {
             throw new RuntimeException(e);
         }
     }
-
+    public List<EmployeeDTO> getAll() {
+        try {
+           return employeeDtoMapper.mapToEmployeeDTOs(employeeRepository.getAll());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public EmployeeDTO get(int employeeID) {
+        try {
+            return employeeDtoMapper.mapToEmployeeDTO(employeeRepository.getById(employeeID));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
