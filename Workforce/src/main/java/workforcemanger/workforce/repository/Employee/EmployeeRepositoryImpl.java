@@ -6,6 +6,9 @@ import org.hibernate.Transaction;
 import workforcemanger.workforce.configuration.SessionFactoryUtil;
 import workforcemanger.workforce.model.Employee;
 
+import java.util.Collections;
+import java.util.List;
+
 public class EmployeeRepositoryImpl implements EmployeeRepository {
     final SessionFactory sessionFactory;
     public EmployeeRepositoryImpl(SessionFactoryUtil sessionfactoryutil) {
@@ -56,18 +59,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
     @Override
     public <T> T get(T t) {
-        if (t instanceof Employee){
-            Transaction transaction = null;
-            try(Session session = sessionFactory.openSession()){
-                transaction = session.beginTransaction();
-                Employee employee = (Employee) t;
-            } catch (Exception e) {
-                if (transaction != null){
-                    transaction.rollback();
-                }
-                e.printStackTrace();
-            }
-        }
         return null;
     }
 
@@ -76,25 +67,48 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
             transaction = session.beginTransaction();
-
-            // Fetch the employee by ID
             Employee employee = session.get(Employee.class, employeeId);
             if (employee != null) {
-                session.delete(employee); // Delete the fetched employee
+                session.delete(employee);
                 transaction.commit();
-                return true; // Return true if deletion was successful
+                return true;
             } else {
-                // Handle case where employee was not found
                 System.out.println("Employee not found with ID: " + employeeId);
-                return false; // Return false if no employee was found
+                return false;
             }
         } catch (Exception e) {
             if (transaction != null) {
-                transaction.rollback(); // Rollback the transaction in case of error
+                transaction.rollback();
             }
             e.printStackTrace();
-            return false; // Return false if an exception occurred
+            return false;
         }
+    }
+    @Override
+    public List<Employee> getAll() {
+        try (Session session = sessionFactory.openSession()) {
+            List<Employee> employees = session.createQuery("from Employee", Employee.class).list();
+            return employees;
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to fetch employees", e);
+        }
+    }
+
+    @Override
+    public Employee getById(int employeeId) {
+        Transaction transaction = null;
+        try(Session session = sessionFactory.openSession()){
+            transaction = session.beginTransaction();
+            Employee employee = session.get(Employee.class, employeeId);
+            transaction.commit();
+            return employee;
+        } catch (Exception e) {
+            if (transaction != null){
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

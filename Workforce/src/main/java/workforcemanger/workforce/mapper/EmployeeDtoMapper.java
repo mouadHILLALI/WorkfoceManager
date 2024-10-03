@@ -3,6 +3,9 @@ package workforcemanger.workforce.mapper;
 import workforcemanger.workforce.dto.EmployeeDTO;
 import workforcemanger.workforce.model.Employee;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EmployeeDtoMapper {
 
     public EmployeeDtoMapper() {
@@ -42,5 +45,13 @@ public class EmployeeDtoMapper {
         } catch (Exception e) {
             throw new RuntimeException("Error while mapping Employee to EmployeeDTO", e);
         }
+    }
+    public List<EmployeeDTO> mapToEmployeeDTOs(List<Employee> employees) {
+     if (employees == null) {
+         throw new IllegalArgumentException("Employees cannot be null");
+     }
+     List<EmployeeDTO> employeeDTOs = new ArrayList<EmployeeDTO>();
+     employees.forEach(employee -> employeeDTOs.add(mapToEmployeeDTO(employee)));
+     return employeeDTOs;
     }
 }

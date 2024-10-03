@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
     <title>Title</title>
@@ -30,6 +31,31 @@
     <input type="text" id="action" value="create" name="action">
     <button type="submit">Submit</button>
 </form>
+<h1>employees List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Poste</th>
+        <th>Phone</th>
+        <th>Department</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="employee" items="${employees}">
+        <tr>
+            <td>${employee.name}</td>
+            <td>${employee.email}</td>
+            <td>${employee.poste}</td>
+            <td>${employee.phone}</td>
+            <td>${employee.department}</td>
+            <td><a href="/employees?id=${employee.id}&action=delete">Delete</a></td>
+            <td><a href="/employees?id=${employee.id}&action=update">Update</a></td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
 
 </body>
 </html>
