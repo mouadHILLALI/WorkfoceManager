@@ -111,4 +111,42 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         return null;
     }
 
+    @Override
+    public List<Employee> search(String name) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            List<Employee> employees = session.createQuery(
+                            "from Employee e where e.name LIKE :name", Employee.class)
+                    .setParameter("name", "%" + name + "%")
+                    .list();
+            transaction.commit();
+            return employees;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Employee> filter(String departement) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            List<Employee> employees = session.createQuery(
+                            "from Employee e where e.department LIKE :name", Employee.class)
+                    .setParameter("department", "%" + departement + "%")
+                    .list();
+            transaction.commit();
+            return employees;
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new RuntimeException(e);
+        }
+    }
+
 }
