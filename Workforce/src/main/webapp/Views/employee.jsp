@@ -31,6 +31,10 @@
     <input type="text" id="action" value="create" name="action">
     <button type="submit">Submit</button>
 </form>
+<form method="post" action="/employees" >
+    <input placeholder="search by name" type="search" name="search">
+    <input type="submit" value="Search">
+</form>
 <h1>employees List</h1>
 <table>
     <thead>
@@ -50,7 +54,13 @@
             <td>${employee.poste}</td>
             <td>${employee.phone}</td>
             <td>${employee.department}</td>
-            <td><a href="/employees?id=${employee.id}&action=delete">Delete</a></td>
+            <td>
+            <form action="/employees" method="post">
+                <input type="text" value="${employee.id}" name="id">
+                <input type="text" value="delete" name="action">
+                <input type="submit">
+            </form>
+            </td>
             <td><a href="/employees?id=${employee.id}&action=update">Update</a></td>
         </tr>
     </c:forEach>

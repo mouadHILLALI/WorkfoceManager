@@ -28,8 +28,10 @@ public class EmployeeServlet extends HttpServlet {
             case "update":
                 updateEmployee(req, resp);
                 break;
+            case "delete":
+                deleteEmployee(req, resp);
             default:
-                resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
+                System.out.println("Im here");
                 break;
         }
 
@@ -40,10 +42,8 @@ public class EmployeeServlet extends HttpServlet {
              case "update":
                  getEmployee(req, resp);
                  break;
-             case "delete":
-                 deleteEmployee(req, resp);
             default:
-                getallEmployee(req, resp);
+                getAllEmployees(req, resp);
         }
     }
 
@@ -74,18 +74,25 @@ public class EmployeeServlet extends HttpServlet {
         try {
             int employeeID = Integer.parseInt(req.getParameter("id"));
             boolean flag = employeeServices.delete(employeeID);
-            HttpSession session = req.getSession();
-            if(flag){
-                session.setAttribute("flashMessage", "Employee deleted successfully!");
-                resp.sendRedirect("/employees?action=");
-            }else{
-                session.setAttribute("flashMessage", "Employee could not be deleted!");
-                resp.sendRedirect("/employees?action=");
+            RequestDispatcher dispatcher;
+            if (flag) {
+                req.setAttribute("flashMessage", "Employee deleted successfully!");
+                dispatcher = req.getRequestDispatcher("/Views/success.jsp");
+                dispatcher.forward(req, resp);
+            } else if (!flag){
+                req.setAttribute("flashMessage", "Employee could not be deleted!");
+                dispatcher = req.getRequestDispatcher("/Views/fail.jsp");
+                dispatcher.forward(req, resp);
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+
+            if (!resp.isCommitted()) {
+                resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error during employee deletion");
+            }
         }
     }
+
     public void updateEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             employeeDTO.setName(req.getParameter("name"));
@@ -107,13 +114,15 @@ public class EmployeeServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-    public void getallEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void getAllEmployees(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             resp.setContentType("text/html");
-            List<EmployeeDTO> employees  = employeeServices.getAll();
+            List<EmployeeDTO> employees = employeeServices.getAll();
             req.setAttribute("employees", employees);
-            req.getRequestDispatcher("/Views/employee.jsp?action=").forward(req, resp);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/Views/employee.jsp?action=");
+            dispatcher.forward(req, resp);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
