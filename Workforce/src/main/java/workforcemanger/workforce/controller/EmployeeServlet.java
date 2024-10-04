@@ -30,8 +30,13 @@ public class EmployeeServlet extends HttpServlet {
                 break;
             case "delete":
                 deleteEmployee(req, resp);
+                break;
             case "search":
                 searchEmployee(req, resp);
+                break;
+            case "filter":
+                filterEmployee(req, resp);
+                break;
             default:
                 System.out.println("Im here");
                 break;
@@ -141,7 +146,7 @@ public class EmployeeServlet extends HttpServlet {
         try {
             String param = req.getParameter("search");
             List<EmployeeDTO> employeeDTOS = employeeServices.search(param);
-            req.setAttribute("employeeDTOS", employeeDTOS);
+            req.setAttribute("employee", employeeDTOS);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/Views/results.jsp");
             dispatcher.forward(req, resp);
         } catch (Exception e) {
@@ -150,9 +155,9 @@ public class EmployeeServlet extends HttpServlet {
     }
     public void filterEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            String param = req.getParameter("filter");
+            String param = req.getParameter("flt");
             List<EmployeeDTO> employeeDTOS = employeeServices.filer(param);
-            req.setAttribute("employeeDTOS", employeeDTOS);
+            req.setAttribute("employee", employeeDTOS);
             RequestDispatcher dispatcher = req.getRequestDispatcher("/Views/results.jsp");
             dispatcher.forward(req, resp);
         }catch (Exception e) {

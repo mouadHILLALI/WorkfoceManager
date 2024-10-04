@@ -9,11 +9,28 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Workforce</title>
+    <link rel="stylesheet" href="./Static/css/employee.css">
 </head>
 <body>
-<h1>employee page</h1>
-<form action="http://localhost:9090/employees" method="post">
+<nav>
+    <h1>Employees Management </h1>
+    <form method="post" id="form1" action="/employees" >
+        <input placeholder="search by name" type="search" name="search">
+        <input  type="text" value="search" class="action" name="action">
+            <button type="submit">Search</button>
+    </form>
+    <form action="/employees" method="post">
+        <input  type="text" value="filter" class="action" name="action">
+        <select name="flt">
+<c:forEach var="employee" items="${employees}">
+    <option>${employee.department}</option>
+</c:forEach>
+        </select>
+        <input type="submit" value="filter">
+    </form>
+</nav>
+<form id="form2" action="http://localhost:9090/employees" method="post">
     <label for="name">Name:</label>
     <input type="text" id="name" name="name">
 
@@ -28,15 +45,11 @@
 
     <label for="department">Department:</label>
     <input type="text" id="department" name="department">
-    <input type="text" id="action" value="create" name="action">
+    <input type="text" value="create" class="action" name="action">
     <button type="submit">Submit</button>
 </form>
-<form method="post" action="/employees" >
-    <input placeholder="search by name" type="search" name="search">
-    <input  type="text" value="search" name="action">
-    <input type="submit" value="Search">
-</form>
-<h1>employees List</h1>
+
+<h1>Employees List</h1>
 <table>
     <thead>
     <tr>
@@ -57,9 +70,9 @@
             <td>${employee.department}</td>
             <td>
             <form action="/employees" method="post">
-                <input type="text" value="${employee.id}" name="id">
-                <input type="text" value="delete" name="action">
-                <input type="submit">
+                <input type="text" value="${employee.id}" class="id" name="id">
+                <input type="text" value="delete" class="action" name="action">
+                <input type="submit" value="delete" >
             </form>
             </td>
             <td><a href="/employees?id=${employee.id}&action=update">Update</a></td>

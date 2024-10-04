@@ -9,11 +9,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Workforce</title>
+    <link rel="stylesheet" href="./Static/css/update.css">
 </head>
 <body>
-<h1>update</h1>
+
 <form action="http://localhost:9090/employees" method="post">
+    <h1>Update form</h1>
     <label for="name">Name:</label>
     <input type="text" id="name" value="${employee.name}" name="name">
     <label for="email">Email:</label>

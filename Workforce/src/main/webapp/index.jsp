@@ -3,9 +3,11 @@
 <html>
 <head>
     <title>Workforce</title>
+    <link rel="stylesheet" href="./Static/css/index.css">
 </head>
 <body>
-<br/>
+<nav>
 <a href="/employees?action=">Manage Employees</a>
+</nav>
 </body>
 </html>

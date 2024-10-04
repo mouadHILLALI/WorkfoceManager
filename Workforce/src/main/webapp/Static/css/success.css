@@ -1,0 +1,60 @@
+/* Static/css/success.css */
+body {
+    font-family: "Calibri", sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+h1 {
+    color: #4CAF50;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+table {
+    border-collapse: collapse;
+    width: 50%;
+    margin: 20px 0;
+}
+
+table, th, td {
+    border: 1px solid #ccc;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f9f9f9;
+    font-weight: bold;
+}
+
+td {
+    background-color: #ffffff;
+}
+
+a {
+    text-decoration: none;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+a:hover {
+    background-color: #45a049;
+}
