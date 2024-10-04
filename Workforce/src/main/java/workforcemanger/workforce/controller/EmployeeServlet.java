@@ -30,6 +30,8 @@ public class EmployeeServlet extends HttpServlet {
                 break;
             case "delete":
                 deleteEmployee(req, resp);
+            case "search":
+                searchEmployee(req, resp);
             default:
                 System.out.println("Im here");
                 break;
@@ -46,7 +48,6 @@ public class EmployeeServlet extends HttpServlet {
                 getAllEmployees(req, resp);
         }
     }
-
     public void createEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             String name = req.getParameter("name");
@@ -92,7 +93,6 @@ public class EmployeeServlet extends HttpServlet {
             }
         }
     }
-
     public void updateEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             employeeDTO.setName(req.getParameter("name"));
@@ -135,6 +135,28 @@ public class EmployeeServlet extends HttpServlet {
             req.getRequestDispatcher("/Views/update.jsp").forward(req, resp);
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+    public void searchEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String param = req.getParameter("search");
+            List<EmployeeDTO> employeeDTOS = employeeServices.search(param);
+            req.setAttribute("employeeDTOS", employeeDTOS);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/Views/results.jsp");
+            dispatcher.forward(req, resp);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void filterEmployee(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            String param = req.getParameter("filter");
+            List<EmployeeDTO> employeeDTOS = employeeServices.filer(param);
+            req.setAttribute("employeeDTOS", employeeDTOS);
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/Views/results.jsp");
+            dispatcher.forward(req, resp);
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
