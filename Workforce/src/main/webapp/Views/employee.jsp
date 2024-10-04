@@ -33,6 +33,7 @@
 </form>
 <form method="post" action="/employees" >
     <input placeholder="search by name" type="search" name="search">
+    <input  type="text" value="search" name="action">
     <input type="submit" value="Search">
 </form>
 <h1>employees List</h1>
