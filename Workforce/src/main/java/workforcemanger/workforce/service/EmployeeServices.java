@@ -57,4 +57,18 @@ public class EmployeeServices {
             throw new RuntimeException(e);
         }
     }
+    public List<EmployeeDTO> search(String search) {
+        try {
+            return employeeDtoMapper.mapToEmployeeDTOs(employeeRepository.search(search));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public List<EmployeeDTO> filer(String departement) {
+        try {
+            return employeeDtoMapper.mapToEmployeeDTOs(employeeRepository.filter(departement));
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 }
