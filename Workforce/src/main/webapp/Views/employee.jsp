@@ -48,6 +48,11 @@
     <input type="text" value="create" class="action" name="action">
     <button type="submit">Submit</button>
 </form>
+<form id="form" action="/departement" method="post">
+    <label for="name">Name:</label>
+    <input type="text"  name="name">
+    <button type="submit">Submit</button>
+</form>
 
 <h1>Employees List</h1>
 <table>

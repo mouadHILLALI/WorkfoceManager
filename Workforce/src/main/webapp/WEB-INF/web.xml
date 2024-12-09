@@ -3,9 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-    <listener>
-        <listener-class>workforcemanger.workforce.listener.SessionFactoryListner</listener-class>
-    </listener>
     <servlet>
         <servlet-name>EmployeeServlet</servlet-name>
         <servlet-class>workforcemanger.workforce.controller.EmployeeServlet</servlet-class>
@@ -13,5 +10,13 @@
     <servlet-mapping>
         <servlet-name>EmployeeServlet</servlet-name>
         <url-pattern>/employees</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DepartementServlet</servlet-name>
+        <servlet-class>workforcemanger.workforce.controller.DepartmentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DepartementServlet</servlet-name>
+        <url-pattern>/departement</url-pattern>
     </servlet-mapping>
 </web-app>
